@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCI</title>
+</head>
+<style>
+  body {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #660000;
+  }
+
+  div {
+    border: 2px solid #AB274F;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  label {
+    display: inline-block;
+    width: 14em;
+  }
+
+  button {
+    display: block;
+    margin: 20px auto 2px;
+    width: 200px;
+    height: 30px;
+    border: 2px solid #AB274F;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .respuesta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    border: 2px solid #AB274F;
+    border-radius: 10px;
+    height: 50px;
+  }
+</style>
+
+<body>
+  <h1>Calculo del Índice de Masa Muscular</h1>
+  <div>
+    <p><label for="nombre">Tu nombre:</label>
+      <input id="nombre" type="text">
+    </p>
+    <p><label for="kilos">Tu peso en kilos:</label>
+      <input id="kilos" type="number">
+    </p>
+    <p><label for="estatura">Tu estatura en m:</label>
+      <input id="estatura" type="number">
+    </p>
+
+    <label for="sexo">Tu sexo:</label>
+
+    <label for="mujer">Mujer<input type="radio" id="mujer" name="sexo"> </label>
+    <label for="hombre">Hombre<input type="radio" id="hombre" name="sexo"></label>
+
+    <button onclick="calcular()">Calcular</button>
+  </div>
+  <div class="respuesta">
+    <p id="mensaje"></p>
+  </div>
+  <script>
+    const NOMBRE = document.getElementById('nombre')
+    const PESO = document.getElementById('kilos')
+    const ESTATURA = document.getElementById('estatura')
+    const MENSAJE = document.getElementById('mensaje')
+    const MUJER = document.getElementById('mujer')
+    const HOMBRE = document.getElementById('hombre')
+
+    function calcular() {
+      let = nombre = NOMBRE.value
+      const kilos = parseFloat(PESO.value)
+      const estatura = parseFloat(ESTATURA.value) // Devuelve número con decimales 
+      let imc = kilos / Math.pow(estatura, 2) //Math.pow Metrso cuadrados
+      if (imc < 18.5 && HOMBRE.checked) {
+        MENSAJE.innerHTML = `Señor, ${nombre} usted está en un <b>peso bajo (imc = ${imc.toFixed(2)})</b>`
+        //toFixed(2) devuelve el número pero con los decimales que se le indican, en este caso 2
+      }
+      else if (imc < 18.5 && MUJER.checked) {
+        MENSAJE.innerHTML = `Señora, ${nombre} usted está en un <b>peso bajo (imc = ${imc.toFixed(2)})</b>`
+      }
+      else if (imc >= 18.5 && imc <= 24.99 && HOMBRE.checked) {
+        MENSAJE.innerHTML = `Señor, ${nombre} usted está en un <b>peso normal (imc = ${imc.toFixed(2)})</b>`
+      }
+      else if (imc > 18.5 && imc <= 24.99 && MUJER.checked) {
+        MENSAJE.innerHTML = `Señora, ${nombre} usted está en un <b>peso normal (imc = ${imc.toFixed(2)})</b>`
+      }
+      else if (imc >= 25 && imc <= 30 && HOMBRE.checked) {
+        MENSAJE.innerHTML = `Señor, ${nombre} usted está en <b>sobrepeso (imc = ${imc.toFixed(2)})</b>`
+      }
+      else if (imc >= 25 && imc <= 30 && MUJER.checked) {
+        MENSAJE.innerHTML = `Señora, ${nombre} usted está en <b>sobrepeso (imc = ${imc.toFixed(2)})</b>`
+      }
+      else if (imc >= 30 && HOMBRE.checked) {
+        MENSAJE.innerHTML = `Señor, ${nombre} usted tiene <b>obesidad (imc = ${imc.toFixed(2)})</b>`
+      }
+      else if (imc >= 30 && MUJER.checked) {
+        MENSAJE.innerHTML = `Señora, ${nombre} usted tiene <b>obesidad (imc = ${imc.toFixed(2)})</b>`
+      }
+    }
+  </script>
+</body>
+
+</html>
